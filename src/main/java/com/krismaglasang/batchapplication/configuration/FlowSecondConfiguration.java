@@ -39,7 +39,7 @@ public class FlowSecondConfiguration {
     }
 
     @Bean
-    public Job customJob2(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+    public Job flowSecondJob(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
 //        return new JobBuilder("job1", jobRepository)
 //                .start(step1(jobRepository, transactionManager))
 //                .next(step2(jobRepository, transactionManager))
@@ -57,7 +57,7 @@ public class FlowSecondConfiguration {
 
         // instead of the jobbuilder calling the steps directly, wen ca pass the steps to a flow and then
         // the jobbuilder calls the flow
-        return new JobBuilder("customJob2", jobRepository)
+        return new JobBuilder("flowSecondJob", jobRepository)
                 .start(startingStep(jobRepository, transactionManager))
                 .on("COMPLETED")
                 .to(batchConfiguration.flow1(jobRepository, transactionManager))

@@ -39,8 +39,8 @@ public class FlowFirstConfiguration {
     }
 
     @Bean
-    public Job customJob1(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
-        return new JobBuilder("customJob1", jobRepository)
+    public Job flowFirstJob(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+        return new JobBuilder("flowFirstJob", jobRepository)
                 .start(batchConfiguration.flow1(jobRepository, transactionManager))
                 .next(endingStep(jobRepository, transactionManager))
                 .end()

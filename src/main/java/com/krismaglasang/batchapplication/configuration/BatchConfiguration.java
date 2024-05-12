@@ -63,6 +63,22 @@ public class BatchConfiguration {
     }
 
     @Bean
+    public Step oddStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+        return new StepBuilder("oddStep", jobRepository)
+                .tasklet(tasklet(), transactionManager)
+                .allowStartIfComplete(true)
+                .build();
+    }
+
+    @Bean
+    public Step evenStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+        return new StepBuilder("evenStep", jobRepository)
+                .tasklet(tasklet(), transactionManager)
+                .allowStartIfComplete(true)
+                .build();
+    }
+
+    @Bean
     public Flow flow1(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
         FlowBuilder<Flow> flowBuilder = new FlowBuilder<>("flow1");
         flowBuilder.start(step1(jobRepository, transactionManager))

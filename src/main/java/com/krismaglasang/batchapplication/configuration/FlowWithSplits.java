@@ -26,8 +26,8 @@ public class FlowWithSplits {
      * @return
      */
     @Bean
-    public Job customJob3(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
-        return new JobBuilder("customJob3", jobRepository)
+    public Job splitsJob(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+        return new JobBuilder("splitsJob", jobRepository)
                 .start(batchConfiguration.flow1(jobRepository, transactionManager))
                 .split(new SimpleAsyncTaskExecutor()).add(batchConfiguration.flow2(jobRepository, transactionManager))
                 .end()
